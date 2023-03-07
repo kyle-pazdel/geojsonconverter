@@ -10,15 +10,17 @@ export default function Home() {
     acceptedFiles.forEach((file) => {
       const reader = new FileReader();
       console.log(file);
-      file.reader;
+
       reader.onabort = () => console.log("file reading was aborted");
       reader.onerror = () => console.log("file reading has failed");
       reader.onload = () => {
         const binaryStr = reader.result;
         let gpx = new gpxParser();
-        parsed = gpx.parse(binaryStr);
-        console.log(parsed);
+        gpx.parse(binaryStr);
+        const track = gpx.tracks[0];
+        console.log(track);
       };
+      reader.readAsText(file);
     });
   }, []);
 
