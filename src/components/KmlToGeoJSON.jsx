@@ -123,7 +123,7 @@ export default function KmlToGeoJSON() {
         href={`data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(track))}`}
         download={`${filename}.geojson`}
       >
-        {`Download Json`}
+        {`Download as GeoJSON`}
       </a>
     </>
   );
