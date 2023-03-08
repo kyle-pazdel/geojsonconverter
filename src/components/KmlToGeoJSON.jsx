@@ -1,23 +1,35 @@
-import Map from "react-map-gl";
+import Map, { Source, Layer } from "react-map-gl";
 import Dropzone, { useDropzone } from "react-dropzone";
-import { useEffect, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, useEffect, useRef } from "react";
 import gpxParser from "gpxparser";
+import mapboxgl from "mapbox-gl";
+import { kml } from "@tmcw/togeojson";
+import xmldom from "xmldom";
 
-export default function Home() {
+export default function KmlToGeoJSON() {
   const key = import.meta.env.VITE_ACCESS_KEY;
+  mapboxgl.accessToken = import.meta.env.VITE_ACCESS_KEY;
+  const [track, setTrack] = useState({});
+  const mapContainer = useRef(null);
+  const [long, setLong] = useState(-94.503809);
+  const [lat, setLat] = useState(46.443226);
+  const [zoom, setZoom] = useState(4.5);
+  const [filename, setFilename] = useState("");
 
   const onDrop = useCallback((acceptedFiles) => {
     acceptedFiles.forEach((file) => {
-      const reader = new FileReader();
       console.log(file);
-
+      setFilename(file.path);
+      const reader = new FileReader();
       reader.onabort = () => console.log("file reading was aborted");
       reader.onerror = () => console.log("file reading has failed");
       reader.onload = () => {
         const binaryStr = reader.result;
+        console.log(binaryStr);
         let gpx = new gpxParser();
-        gpx.parse(binaryStr);
-        const track = gpx.tracks[0];
+        const kmlFile = kml(new DOMParser().parseFromString(binaryStr, "text/xml"));
+        const track = kmlFile;
+        setTrack(track);
         console.log(track);
       };
       reader.readAsText(file);
@@ -63,6 +75,29 @@ export default function Home() {
 
   return (
     <>
+      <h1>KML to GeoJSON Converter</h1>
+      {/* <Map
+        mapboxAccessToken={key}
+        onViewportChange={(newViewport) => {
+          this.setState({ viewport: newViewport });
+        }}
+      >
+        <Source id="polylineLayer" type="geojson" data={dataOne}>
+          <Layer
+            id="lineLayer"
+            type="line"
+            source="my-data"
+            layout={{
+              "line-join": "round",
+              "line-cap": "round",
+            }}
+            paint={{
+              "line-color": "rgba(3, 170, 238, 0.5)",
+              "line-width": 5,
+            }}
+          />
+        </Source>
+      </Map> */}
       {/* <Map
         initialViewState={{
           longitude: -122.4,
@@ -73,6 +108,7 @@ export default function Home() {
         mapStyle="mapbox://styles/mapbox/streets-v9"
         mapboxAccessToken={key}
       /> */}
+      <br />
       <div {...getRootProps({ style })}>
         <input {...getInputProps()} />
         {isDragActive ? (
@@ -81,6 +117,9 @@ export default function Home() {
           <p>Drag 'n' drop some files here, or click to select files</p>
         )}
       </div>
+      <a href={`data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(track))}`} download="filename.json">
+        {`Download Json`}
+      </a>
     </>
   );
 }

@@ -1,8 +1,14 @@
 import "./App.css";
-import Home from "./components/Home";
+import GpxParse from "./components/GpxParse";
+import KmlToGeoJSON from "./components/KmlToGeoJSON";
 
 function App() {
-  return <Home />;
+  return (
+    <>
+      <KmlToGeoJSON />
+      <GpxParse />
+    </>
+  );
 }
 
 export default App;
