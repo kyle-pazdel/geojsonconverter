@@ -19,7 +19,8 @@ export default function KmlToGeoJSON() {
   const onDrop = useCallback((acceptedFiles) => {
     acceptedFiles.forEach((file) => {
       console.log(file);
-      setFilename(file.path);
+      console.log(file.path.slice(0, -8));
+      setFilename(file.path.slice(0, -8));
       const reader = new FileReader();
       reader.onabort = () => console.log("file reading was aborted");
       reader.onerror = () => console.log("file reading has failed");
@@ -117,7 +118,10 @@ export default function KmlToGeoJSON() {
           <p>Drag 'n' drop some files here, or click to select files</p>
         )}
       </div>
-      <a href={`data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(track))}`} download="filename.json">
+      <a
+        href={`data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(track))}`}
+        download={`${filename}.geojson`}
+      >
         {`Download Json`}
       </a>
     </>
