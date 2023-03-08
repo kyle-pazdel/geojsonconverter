@@ -33,7 +33,10 @@ export default function KmlToGeoJSON() {
     });
   }, []);
 
-  const { getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject } = useDropzone({
+    onDrop,
+    accept: { "text/xml": [".kml", ".kml.txt"] },
+  });
 
   // react-dropzone styling
   const baseStyle = {

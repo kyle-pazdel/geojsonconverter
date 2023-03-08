@@ -3,7 +3,6 @@ import Dropzone, { useDropzone } from "react-dropzone";
 import { useState, useCallback, useMemo, useEffect, useRef } from "react";
 import gpxParser from "gpxparser";
 import { gpx, gpxGen, kml } from "@tmcw/togeojson";
-// import { gpx } from "@mapbox/togeojson";
 
 export default function GpxToGeoJSON() {
   const key = import.meta.env.VITE_ACCESS_KEY;
@@ -23,10 +22,6 @@ export default function GpxToGeoJSON() {
       reader.onerror = () => console.log("file reading has failed");
       reader.onload = () => {
         const binaryStr = reader.result;
-        // console.log(binaryStr);
-        // let gpx = new gpxParser();
-        // gpx.parse(binaryStr);
-        // const track = gpx.tracks[0];
         const gpxFile = gpx(new DOMParser().parseFromString(binaryStr, "text/xml"));
         const track = gpxFile;
         setTrack(track);
@@ -36,7 +31,10 @@ export default function GpxToGeoJSON() {
     });
   }, []);
 
-  const { getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject } = useDropzone({
+    onDrop,
+    accept: { "text/xml": [".gpx", ".gpx.txt"] },
+  });
 
   // react-dropzone styling
   const baseStyle = {

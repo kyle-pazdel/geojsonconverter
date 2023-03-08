@@ -5,8 +5,8 @@ import KmlToGeoJSON from "./components/KmlToGeoJSON";
 function App() {
   return (
     <>
-      <KmlToGeoJSON />
       <GpxToGeoJSON />
+      <KmlToGeoJSON />
     </>
   );
 }
