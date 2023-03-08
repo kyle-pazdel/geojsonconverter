@@ -1,12 +1,12 @@
 import "./App.css";
-import GpxParse from "./components/GpxParse";
+import GpxToGeoJSON from "./components/GpxToGeoJSON";
 import KmlToGeoJSON from "./components/KmlToGeoJSON";
 
 function App() {
   return (
     <>
       <KmlToGeoJSON />
-      <GpxParse />
+      <GpxToGeoJSON />
     </>
   );
 }

@@ -1,10 +1,8 @@
 import Map, { Source, Layer } from "react-map-gl";
 import Dropzone, { useDropzone } from "react-dropzone";
 import { useState, useCallback, useMemo, useEffect, useRef } from "react";
-import gpxParser from "gpxparser";
 import mapboxgl from "mapbox-gl";
 import { kml } from "@tmcw/togeojson";
-import xmldom from "xmldom";
 
 export default function KmlToGeoJSON() {
   const key = import.meta.env.VITE_ACCESS_KEY;
@@ -19,15 +17,13 @@ export default function KmlToGeoJSON() {
   const onDrop = useCallback((acceptedFiles) => {
     acceptedFiles.forEach((file) => {
       console.log(file);
-      console.log(file.path.slice(0, -8));
-      setFilename(file.path.slice(0, -8));
+      setFilename(file.path);
       const reader = new FileReader();
       reader.onabort = () => console.log("file reading was aborted");
       reader.onerror = () => console.log("file reading has failed");
       reader.onload = () => {
         const binaryStr = reader.result;
         console.log(binaryStr);
-        let gpx = new gpxParser();
         const kmlFile = kml(new DOMParser().parseFromString(binaryStr, "text/xml"));
         const track = kmlFile;
         setTrack(track);
@@ -112,16 +108,12 @@ export default function KmlToGeoJSON() {
       <br />
       <div {...getRootProps({ style })}>
         <input {...getInputProps()} />
-        {isDragActive ? (
-          <p>Drag 'n' drop GPX files here</p>
-        ) : (
-          <p>Drag 'n' drop some files here, or click to select files</p>
-        )}
-        {filename != "" ? <p>{filename}.kml.txt</p> : null}
+        {isDragActive ? <p>Drop KML files here</p> : <p>Drag 'n' drop KML files here, or click to select files</p>}
+        {filename != "" ? <p>{filename}</p> : null}
       </div>
       <a
         href={`data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(track))}`}
-        download={`${filename}.geojson`}
+        download={`${filename.slice(0, -8)}.geojson`}
       >
         {`Download as GeoJSON`}
       </a>
