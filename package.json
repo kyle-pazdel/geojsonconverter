@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite && react-dotenv",
-    "build": "vite build && react-dotenv",
+    "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
