@@ -33,7 +33,7 @@ export default function GpxToGeoJSON() {
 
   const { getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject } = useDropzone({
     onDrop,
-    accept: { "text/xml": [".gpx", ".gpx.txt"] },
+    accept: { type: [".gpx", ".gpx.txt"] },
   });
 
   // react-dropzone styling
