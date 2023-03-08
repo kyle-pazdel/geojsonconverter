@@ -117,6 +117,7 @@ export default function KmlToGeoJSON() {
         ) : (
           <p>Drag 'n' drop some files here, or click to select files</p>
         )}
+        {filename != "" ? <p>{filename}.kml.txt</p> : null}
       </div>
       <a
         href={`data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(track))}`}
