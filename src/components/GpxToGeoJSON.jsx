@@ -47,7 +47,7 @@ export default function GpxToGeoJSON() {
     borderRadius: 2,
     borderColor: "#eeeeee",
     borderStyle: "dashed",
-    backgroundColor: "#fafafa",
+    backgroundColor: "#0369a150",
     color: "#bdbdbd",
     outline: "none",
     transition: "border .24s ease-in-out",
@@ -75,7 +75,7 @@ export default function GpxToGeoJSON() {
     <>
       <h1>GPX to GeoJSON Converter</h1>
       <div {...getRootProps({ style })}>
-        <input {...getInputProps()} />
+        <input {...getInputProps()} className="bg-sky-700" />
         {isDragActive ? <p>Drop GPX file here.</p> : <p>Drag 'n' drop GPX files here, or click to select files</p>}
         {filename != "" ? <p>{filename}</p> : null}
       </div>

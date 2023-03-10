@@ -49,7 +49,7 @@ export default function KmlToGeoJSON() {
     borderRadius: 2,
     borderColor: "#eeeeee",
     borderStyle: "dashed",
-    backgroundColor: "#fafafa",
+    backgroundColor: "#0369a150",
     color: "#bdbdbd",
     outline: "none",
     transition: "border .24s ease-in-out",
