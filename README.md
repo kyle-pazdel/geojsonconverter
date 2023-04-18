@@ -26,7 +26,7 @@
 ## Getting Started
 
 ### Dependencies
-GeoJSON Converter was built with React 18.2.0, uses the  [@tmcw/togeojson](https://github.com/mapbox/togeojson/) to parse files to geojson objects, and is styled with Tailwind.
+GeoJSON Converter was built with React 18.2.0, uses the  [@tmcw/togeojson](https://github.com/mapbox/togeojson/) library to parse files to geojson objects, and is styled with Tailwind.
 <br/>
 <br/>
 This app utilizes Node Package Manager for dependency installation. If you don't already have npm or Node.js configured on your local machine, you can follow the instructions [here for a quick set-up](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
